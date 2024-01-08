@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 require 'bulkrax'
 
 module LdrDevelopmentSeeds
-  ALL_TYPES = [:publication, :image].freeze
+  ALL_TYPES = %i[publication image].freeze
 
   require 'ldr-development-seeds/railtie' if defined?(Rails)
 
@@ -20,7 +21,11 @@ module LdrDevelopmentSeeds
 
   def self.cleanup!
     ALL_TYPES.each do |type|
-      importer = ::Bulkrax::Importer.find_by(name: importer_name_for(type)) rescue nil
+      importer = begin
+        ::Bulkrax::Importer.find_by(name: importer_name_for(type))
+      rescue StandardError
+        nil
+      end
       importer.destroy if importer.present?
     end
   end
@@ -57,7 +62,7 @@ module LdrDevelopmentSeeds
           'override_rights_statement' => '0',
           'file_style' => 'Specify a Path on the Server',
           'import_file_path' => import_file_path,
-          'update_files' => false,
+          'update_files' => false
         }
       )
     end

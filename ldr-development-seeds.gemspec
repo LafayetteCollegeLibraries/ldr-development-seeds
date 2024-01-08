@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Gem::Specification.new do |gem|
   gem.name = 'ldr-development-seeds'
   gem.summary = 'Seeds for local development of Lafayette Digital Repository'
@@ -7,8 +8,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version = '0.0.0'
 
-  gem.files = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR).select { |f| File.dirname(f) !~ %r{\A"?spec\/?} }
+  gem.files = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR).reject { |f| File.dirname(f).match(%r{\A"?spec/?}) }
 
-  gem.add_dependency 'hyrax', '~> 3'
+  gem.required_ruby_version = '>= 2.7.0'
+
   gem.add_dependency 'bulkrax', '~> 5'
+  gem.add_dependency 'hyrax', '~> 3'
 end

@@ -1,4 +1,6 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem 'hyrax', '~> 3'
+source 'https://rubygems.org'
+
 gem 'bulkrax', '~> 5.4.0'
+gem 'hyrax', '~> 3'

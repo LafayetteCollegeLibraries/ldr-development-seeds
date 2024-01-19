@@ -55,15 +55,9 @@ module LdrDevelopmentSeeds
         admin_set_id: 'admin_set/default',
         user_id: User.find_by(email: 'dss@lafayette.edu').id,
         frequency: 'PT0S',
+        field_mapping: Bulkrax.field_mappings['Bulkrax::CsvParser'],
         parser_klass: 'Bulkrax::CsvParser',
-        parser_fields: {
-          'visibility' => 'open',
-          'rights_statement' => '',
-          'override_rights_statement' => '0',
-          'file_style' => 'Specify a Path on the Server',
-          'import_file_path' => import_file_path,
-          'update_files' => false
-        }
+        parser_fields: parser_fields_for_importer
       )
     end
 
@@ -77,6 +71,17 @@ module LdrDevelopmentSeeds
 
     def import_file_path
       File.join(__dir__, 'data', "#{type.to_s.pluralize}.csv")
+    end
+
+    def parser_fields_for_importer
+      {
+        'visibility' => 'open',
+        'rights_statement' => '',
+        'override_rights_statement' => '0',
+        'file_style' => 'Specify a Path on the Server',
+        'import_file_path' => import_file_path,
+        'update_files' => false
+      }
     end
   end
 end

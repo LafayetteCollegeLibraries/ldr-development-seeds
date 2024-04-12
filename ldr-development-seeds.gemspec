@@ -12,6 +12,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.7.0'
 
-  gem.add_dependency 'bulkrax', '~> 5'
-  gem.add_dependency 'hyrax', '~> 3'
+  gem.add_dependency 'bulkrax'
+  gem.add_dependency 'hyrax'
 end
